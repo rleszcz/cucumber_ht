@@ -12,6 +12,9 @@ public class ItemPage extends BasePage {
     @FindBy(xpath = "//*[contains(text(), \"Go to cart\")]")
     private static WebElement GO_TO_CART_BUTTON;
 
+    @FindBy(xpath = "//span[@id=\"fshippingCost\"]")
+    private static WebElement SHIPPING_COST_ELEMENT;
+
     public ItemPage(WebDriver driver){
         super(driver);
     }

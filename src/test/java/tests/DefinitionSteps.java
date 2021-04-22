@@ -13,11 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pages.HomePage;
-import pages.ItemPage;
-import pages.LoginPage;
-import pages.SearchResultsPage;
-
+import pages.*;
 import java.time.Duration;
 
 public class DefinitionSteps {
@@ -25,18 +21,18 @@ public class DefinitionSteps {
     protected WebDriver driver;
     protected DriverManager driverManager = null;
     protected HomePage homePage = null;
-    protected LoginPage loginPage = null;
     protected SearchResultsPage searchResultsPage = null;
     protected ItemPage itemPage = null;
+    protected AdvancedSearchPage advancedSearchPage = null;
 
     @Before
     public void prepare() {
         driverManager = new DriverManager();
-        driver = driverManager.getDriver("Chrome");
+        driver = driverManager.getDriver("Edge");
         homePage = new HomePage(driver);
-        loginPage = new LoginPage(driver);
         searchResultsPage = new SearchResultsPage(driver);
         itemPage = new ItemPage(driver);
+        advancedSearchPage = new AdvancedSearchPage(driver);
     }
 
     @After
@@ -102,9 +98,9 @@ public class DefinitionSteps {
         Assert.assertTrue(driver.findElement(By.xpath(MY_EBAY_SECTION_ITEM_MESSAGES_XPATH)).isDisplayed());
     }
 
-    @Given("User opens home page directly.")
-    public void userOpensHomePageDirectly() {
-        loginPage.openLoginPageDirectly();
+    @When("User navigates to login page.")
+    public void userNavigatesToLoginPage() {
+        homePage.navigateToLoginPage();
     }
 
     static final String CAPTCHA_FORM_XPATH = "//form[@id=\"captcha_form\"]";
@@ -112,6 +108,7 @@ public class DefinitionSteps {
 
     @Then("Captcha message is displayed.")
     public void checkIfCaptchaMessageIsDisplayed() {
+        waitPresent(CAPTCHA_FORM_XPATH, 5);
         Assert.assertTrue(driver.findElement(By.xpath(CAPTCHA_FORM_XPATH)).getText().contains(EXPECTED_CAPTCHA_MESSAGE));
     }
 
@@ -159,5 +156,29 @@ public class DefinitionSteps {
     public void recentlyViewedItemsAreDisplayedOnTheHomePage() {
         homePage.open();
         Assert.assertTrue(driver.findElement(By.xpath(MAIN_SECTION_XPATH)).getText().contains(RECENTLY_VIEWED_ITEMS_SECTION));
+    }
+
+    @And("User saves his search.")
+    public void userSavesHisSearch() {
+        searchResultsPage.saveThisSearch();
+    }
+
+    @When("User navigates to advanced search.")
+    public void userNavigatesToAdvancedSearch() {
+        homePage.navigateToAdvancedSearch();
+    }
+
+    @And("User searches for {string} with free shipping.")
+    public void userSearchesForItemNameWithFreeShipping(String itemName) {
+        advancedSearchPage.searchWithFreeShipping(itemName);
+    }
+
+    static final String THE_FIRST_RESULT_XPATH = "//div[@id=\"ResultSetItems\"]//li[@r=\"1\"]";
+    static final String FREE_SHIPPING_PHRASE = "Free shipping";
+
+    @Then("For the first result the shipping cost is free.")
+    public void forTheFirstResultTheShippingCostIsFree() {
+        waitPresent(THE_FIRST_RESULT_XPATH, 5);
+        Assert.assertTrue(driver.findElement(By.xpath(THE_FIRST_RESULT_XPATH)).getText().contains(FREE_SHIPPING_PHRASE));
     }
 }

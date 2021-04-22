@@ -19,11 +19,17 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//p[contains(text(), \"Poland\")]")
     private static WebElement POLAND_BUTTON;
 
+    @FindBy(xpath = "//p[contains(text(), \"Russia\")]")
+    private static WebElement RUSSIA_BUTTON;
+
     @FindBy(xpath = "//a[@title=\"My eBay\"]")
     private static WebElement MY_EBAY_SECTION_BUTTON;
 
     @FindBy(xpath = "//a[@href=\"https://cart.ebay.com\"]")
     private static WebElement CART_BUTTON;
+
+    @FindBy(xpath = "//a[@title=\"Advanced Search\"]")
+    private static WebElement ADVANCED_SEARCH_BUTTON;
 
     public HomePage(WebDriver driver){
         super(driver);
@@ -50,6 +56,14 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    @Step("Navigate to Russian version")
+    public HomePage navigateToRussianVersion() {
+        scrollTo(driver, SITE_SELECTION_TAB);
+        clickOnElement(waitToBeClickable(SITE_SELECTION_TAB, driver));
+        clickOnElement(waitToBeClickable(RUSSIA_BUTTON, driver));
+        return this;
+    }
+
     @Step("Open My eBay section")
     public HomePage openMyEbaySection() {
         mouseOverElement(MY_EBAY_SECTION_BUTTON);
@@ -62,4 +76,15 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    @Step("Navigate to login page")
+    public HomePage navigateToLoginPage() {
+        clickOnElement(waitToBeClickable(MY_EBAY_SECTION_BUTTON, driver));
+        return this;
+    }
+
+    @Step("Navigate to advanced search page")
+    public HomePage navigateToAdvancedSearch() {
+        clickOnElement(waitToBeClickable(ADVANCED_SEARCH_BUTTON, driver));
+        return this;
+    }
 }

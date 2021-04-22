@@ -22,7 +22,7 @@ public class CucumberStepContext {
     }
 
     public void setDriver(WebDriver driver) {
-        this.driver.set(driver);
+        CucumberStepContext.driver.set(driver);
     }
 
     public PageManager getPageManager() {

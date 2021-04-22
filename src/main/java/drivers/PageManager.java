@@ -11,7 +11,6 @@ public class PageManager {
     private SearchResultsPage searchResultsPage;
     private ItemPage itemPage;
     private CartPage cartPage;
-    private AdvancedSearchPage advancedSearchPage;
 
     public PageManager(WebDriver driver) {
         this.driver = driver;

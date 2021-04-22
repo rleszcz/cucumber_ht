@@ -40,7 +40,7 @@ public class ItemPage extends BasePage {
 
     @Step("Enter quantity")
     public ItemPage enterQuantity(String quantity) {
-        clickOnElement(QUANTITY_FIELD);
+        clickOnElement(waitToBeClickable(QUANTITY_FIELD, driver));
         pressKey(Keys.BACK_SPACE);
         enterTextIntoField(QUANTITY_FIELD, quantity);
         return this;

@@ -55,6 +55,17 @@ public class BasePage extends Page {
         return visibleElement;
     }
 
+    protected WebElement waitToBeVisible(WebElement element, WebDriver driver) {
+        WebElement visibleElement = null;
+        try {
+            visibleElement = new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.visibilityOf(element));
+        } catch (Exception e) {
+            System.out.println("Element was not loaded!");
+        }
+        return visibleElement;
+    }
+
     protected void scrollTo(WebDriver driver, WebElement element) {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView();", element);

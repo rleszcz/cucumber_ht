@@ -1,6 +1,11 @@
 Feature: Functional test
   This test checks the main actions that can be done on ebay.com.
 
+  Scenario: Checks if cart is empty when no additional actions were taken.
+    Given User opens home page.
+    When User navigates to cart.
+    Then Cart is empty.
+
   Scenario Outline: Search for an item, add the first result to cart, check if cart is not empty.
     Given User opens home page.
     When User searches for '<ItemName>'.
@@ -30,3 +35,14 @@ Feature: Functional test
       | ItemName   | Quantity |
       | Lego 42100 | -5       |
       | Lego 42100 | -9999    |
+
+  Scenario Outline: Search for an item, add it and then remove it from cart, check if cart is empty.
+    Given User opens home page.
+    When User searches for '<ItemName>'.
+    And User picks the first result and navigates to cart.
+    And User removes the only item from cart.
+    Then Cart is empty.
+    Examples:
+      | ItemName   |
+      | Lego 42100 |
+      | Lego 42099 |

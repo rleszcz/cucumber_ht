@@ -19,8 +19,8 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//p[contains(text(), \"Poland\")]")
     private WebElement POLAND_BUTTON;
 
-    @FindBy(xpath = "//p[contains(text(), \"Russia\")]")
-    private WebElement RUSSIA_BUTTON;
+    @FindBy(xpath = "//p[contains(text(), \"United Kingdom\")]")
+    private WebElement UK_BUTTON;
 
     @FindBy(xpath = "//a[@title=\"My eBay\"]")
     private WebElement MY_EBAY_SECTION_BUTTON;
@@ -33,6 +33,9 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//header[@id=\"gh\"]//a[@href=\"https://www.ebay.pl\"]")
     public WebElement POLISH_LOGO_BUTTON;
+
+    @FindBy(xpath = "//header[@id=\"gh\"]//a[@href=\"https://www.ebay.co.uk\"]")
+    public WebElement UK_LOGO_BUTTON;
 
     @FindBy(xpath = "//div[@class=\"gh-menu\"]//a[contains(text(), \"Summary\")]")
     public WebElement MY_EBAY_SECTION_SUMMARY_ITEM;
@@ -64,6 +67,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@class=\"gh-menu\"]//a[contains(text(), \"Messages\")]")
     public WebElement MY_EBAY_SECTION_MESSAGES_ITEM;
 
+    @FindBy(xpath = "//a[@title=\"Advanced Search\"]")
+    public WebElement ADVANCED_SEARCH_BUTTON;
+
     public HomePage(WebDriver driver){
         super(driver);
     }
@@ -89,14 +95,6 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    @Step("Navigate to Russian version")
-    public HomePage navigateToRussianVersion() {
-        scrollTo(driver, SITE_SELECTION_TAB);
-        clickOnElement(waitToBeClickable(SITE_SELECTION_TAB, driver));
-        clickOnElement(waitToBeClickable(RUSSIA_BUTTON, driver));
-        return this;
-    }
-
     @Step("Open My eBay section")
     public HomePage openMyEbaySection() {
         mouseOverElement(MY_EBAY_SECTION_BUTTON);
@@ -115,4 +113,11 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    @Step("Navigate to UK version")
+    public HomePage navigateToUKVersion() {
+        scrollTo(driver, SITE_SELECTION_TAB);
+        clickOnElement(waitToBeClickable(SITE_SELECTION_TAB, driver));
+        clickOnElement(waitToBeClickable(UK_BUTTON, driver));
+        return this;
+    }
 }

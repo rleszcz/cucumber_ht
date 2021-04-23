@@ -1,4 +1,4 @@
-Feature: Captcha testing
+Feature: Captcha test
   This test checks if CAPTCHA verification was added.
 
   Scenario: Log-in attempt with automated software.

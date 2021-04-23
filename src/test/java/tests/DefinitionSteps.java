@@ -8,7 +8,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -68,8 +67,7 @@ public class DefinitionSteps {
 
     @Then("Cart is not empty.")
     public void cartIsNotEmpty() {
-        myWait(pageManager.cartPage().NON_EMPTY_CART, driver);
-        Assert.assertTrue(pageManager.cartPage().NON_EMPTY_CART.isDisplayed());
+        Assert.assertTrue(myWait(pageManager.cartPage().NON_EMPTY_CART, driver).isDisplayed());
     }
 
     @And("User opens any search results.")
@@ -90,8 +88,7 @@ public class DefinitionSteps {
 
     @Then("User is redirected to Polish site.")
     public void userIsRedirectedToPolishSite() {
-        myWait(pageManager.homePage().POLISH_LOGO_BUTTON, driver);
-        Assert.assertTrue(pageManager.homePage().POLISH_LOGO_BUTTON.isDisplayed());
+        Assert.assertTrue(myWait(pageManager.homePage().POLISH_LOGO_BUTTON, driver).isDisplayed());
     }
 
     @When("User hovers the mouse cursor over My eBay menu button.")
@@ -113,11 +110,6 @@ public class DefinitionSteps {
         Assert.assertTrue(pageManager.homePage().MY_EBAY_SECTION_MESSAGES_ITEM.isDisplayed());
     }
 
-    @And("User enters a negative number of <Quantity>.")
-    public void userEntersANegativeNumberOfQuantity(int quantity) {
-
-    }
-
     @And("User enters a negative number of {string}.")
     public void userEntersANegativeNumberOfQuantity(String quantity) {
         pageManager.itemPage().enterQuantity(quantity);
@@ -127,5 +119,35 @@ public class DefinitionSteps {
     public void errorMessageIsDisplayed() {
         Assert.assertTrue(new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElement(pageManager.itemPage().QUANTITY_ERROR_MESSAGE, EXPECTED_QUANTITY_ERROR_MESSAGE)));
+    }
+
+    @When("User selects United Kingdom out of collapsible list.")
+    public void userSelectsUnitedKingdomOutOfCollapsibleList() {
+        pageManager.homePage().navigateToUKVersion();
+    }
+
+    @Then("User is redirected to UK site.")
+    public void userIsRedirectedToUKSite() {
+        Assert.assertTrue(myWait(pageManager.homePage().UK_LOGO_BUTTON, driver).isDisplayed());
+    }
+
+    @When("User navigates to cart.")
+    public void userNavigatesToCart() {
+        pageManager.homePage().goToCart();
+    }
+
+    @Then("Cart is empty.")
+    public void cartIsEmpty() {
+        Assert.assertTrue(myWait(pageManager.cartPage().EMPTY_CART, driver).isDisplayed());
+    }
+
+    @And("User removes the only item from cart.")
+    public void userRemovesTheOnlyItemFromCart() {
+        pageManager.cartPage().removeFromCart();
+    }
+
+    @Then("Advanced search button is present.")
+    public void advancedSearchButtonIsPresent() {
+        Assert.assertTrue(myWait(pageManager.homePage().ADVANCED_SEARCH_BUTTON, driver).isDisplayed());
     }
 }

@@ -20,19 +20,20 @@
         <version.log4j>2.14.1</version.log4j>
 
         <version.download-maven-plugin>1.6.1</version.download-maven-plugin>
+
         <version.chromedriver>89.0.4389.23</version.chromedriver>
         <md5.chromedriver>0bf4bc39f34cee67f5f95afd8a24c191</md5.chromedriver>
+
         <version.geckodriver>v0.29.0</version.geckodriver>
-        <!-- 32 bit
-        <md5.geckodriver>dc1f5f2d3bc32565e59f1ce3a32b8d3d</md5.geckodriver>
-        -->
         <md5.geckodriver>8e19f65e730bd5960e87c7e42c88c5a7</md5.geckodriver>
+
         <version.edgedriver>89.0.774.63</version.edgedriver>
         <md5.edgedriver>6a82870f093a9a7d7972a4cfa331f72c</md5.edgedriver>
 
         <version.aspectj>1.9.6</version.aspectj>
         <version.allure>2.13.8</version.allure>
         <version.allure.maven>2.8</version.allure.maven>
+        <version.allure.cucumber>2.13.9</version.allure.cucumber>
         <version.allure.reports>2.8.0</version.allure.reports>
         <version.surefire.plugin>3.0.0-M5</version.surefire.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,68 +53,61 @@
             <artifactId>testng</artifactId>
             <version>${version.testng}</version>
         </dependency>
-
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${version.cucumber}</version>
         </dependency>
-
         <dependency><groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${version.cucumber}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
             <version>${version.slf4j.nop}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${version.selenium}</version>
         </dependency>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
             <version>${version.selenium.server}</version>
         </dependency>
-
-
         <dependency>
             <groupId>com.googlecode.maven-download-plugin</groupId>
             <artifactId>download-maven-plugin</artifactId>
             <version>${version.download-maven-plugin}</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${version.guava}</version>
         </dependency>
-
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${version.aspectj}</version>
         </dependency>
-
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${version.allure}</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber6-jvm</artifactId>
+            <version>${version.allure.cucumber}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${version.log4j}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -201,7 +195,11 @@
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${version.aspectj}/aspectjweaver-${version.aspectj}.jar"
+                        -Dcucumber.plugin="io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"
                     </argLine>
+                    <includes>
+                        <include>**/CucumberRunner.java</include>
+                    </includes>
                     <systemPropertyVariables>
                         <driver.path>${driver.folder}</driver.path>
                         <test.data.folder>${test.data.folder}</test.data.folder>

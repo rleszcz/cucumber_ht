@@ -13,4 +13,4 @@ Feature: Captcha test
     Then Captcha message is displayed.
     Examples:
       | ItemName   |
-      | Lego 42100 |
+      | Lego 75300 |

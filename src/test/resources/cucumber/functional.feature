@@ -13,8 +13,8 @@ Feature: Functional test
     Then Cart is not empty.
     Examples:
       | ItemName   |
-      | Lego 42100 |
-      | Lego 42099 |
+      | Lego 75300 |
+      | Lego 75301 |
 
   Scenario Outline: Checks if recently viewed items are displayed.
     Given User opens home page.
@@ -23,7 +23,7 @@ Feature: Functional test
     Then Recently viewed items are displayed on the home page.
     Examples:
       | ItemName   |
-      | Lego 42100 |
+      | Lego 75300 |
 
   Scenario Outline: Checks that a negative number of items cannot be added to the cart.
     Given User opens home page.
@@ -33,8 +33,8 @@ Feature: Functional test
     Then Error message is displayed.
     Examples:
       | ItemName   | Quantity |
-      | Lego 42100 | -5       |
-      | Lego 42100 | -9999    |
+      | Lego 75300 | -5       |
+      | Lego 75300 | -9999    |
 
   Scenario Outline: Search for an item, add it and then remove it from cart, check if cart is empty.
     Given User opens home page.
@@ -44,5 +44,5 @@ Feature: Functional test
     Then Cart is empty.
     Examples:
       | ItemName   |
-      | Lego 42100 |
-      | Lego 42099 |
+      | Lego 75300 |
+      | Lego 75301 |
